@@ -222,6 +222,7 @@ impl fp_self_contained::SelfContainedCall for RuntimeCall {
 	}
 }
 
+#[derive(Debug)]
 pub struct AccountInfo {
 	pub address: H160,
 	pub account_id: AccountId32,
@@ -314,6 +315,20 @@ pub fn new_test_ext_with_initial_balance(
 	pallet_balances::GenesisConfig::<Test> { balances }
 		.assimilate_storage(&mut ext)
 		.unwrap();
+
+	let mut account_pairs = BTreeMap::new();
+	for i in 0..pairs.len() {
+		account_pairs.insert(pairs[i].address.clone(), pairs[i].account_id.clone());
+	}
+
+	let accounts = BTreeMap::new();
+
+	pallet_evm::GenesisConfig::<Test> {
+		account_pairs,
+		accounts,
+	}
+	.assimilate_storage(&mut ext)
+	.expect("Pallet evm storage can be assimilated");
 
 	(pairs, ext.into())
 }
