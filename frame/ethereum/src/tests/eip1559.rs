@@ -460,7 +460,7 @@ fn validated_transaction_apply_zero_gas_price_works() {
 	let (pairs, mut ext) = new_test_ext_with_initial_balance(2, 1_000);
 	let alice = &pairs[0];
 	let bob = &pairs[1];
-	
+
 	ext.execute_with(|| {
 		let transaction = EIP1559UnsignedTransaction {
 			nonce: U256::zero(),
