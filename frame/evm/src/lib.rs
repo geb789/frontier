@@ -218,7 +218,7 @@ pub mod pallet {
 			let deeper_address = ensure_signed(origin)?;
 
 			ensure!(
-				!RewardsAccountsEVMtoDeeper::<T>::contains_key(&eth_address),
+				!RewardsAccountsEVMtoDeeper::<T>::contains_key(eth_address),
 				Error::<T>::EthAddressAlreadyMapped
 			);
 
